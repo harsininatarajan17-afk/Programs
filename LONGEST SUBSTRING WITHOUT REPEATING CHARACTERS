@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+
+int longestSubstring(char s[]) {
+    int max = 0;
+
+    for(int i = 0; i < strlen(s); i++) {
+        int visited[256] = {0};
+        int length = 0;
+
+        for(int j = i; j < strlen(s); j++) {
+            if(visited[s[j]] == 1)
+                break;
+            visited[s[j]] = 1;
+            length++;
+        }
+
+        if(length > max)
+            max = length;
+    }
+    return max;
+}
+
+int main() {
+    char s[] = "abcabcbb";
+    printf("%d", longestSubstring(s));
+    return 0;
+}
