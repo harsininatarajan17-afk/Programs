@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int arr[100], size = 0;
+
+void addNum(int num) {
+    arr[size++] = num;
+}
+
+void sort() {
+    for(int i=0;i<size;i++)
+        for(int j=i+1;j<size;j++)
+            if(arr[i] > arr[j]) {
+                int t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+}
+
+double findMedian() {
+    sort();
+
+    if(size % 2 == 1)
+        return arr[size/2];
+    else
+        return (arr[size/2] + arr[size/2 - 1]) / 2.0;
+}
+
+int main() {
+    addNum(1);
+    addNum(2);
+    printf("%.1f\n", findMedian());
+
+    addNum(3);
+    printf("%.1f\n", findMedian());
+
+    return 0;
+}
