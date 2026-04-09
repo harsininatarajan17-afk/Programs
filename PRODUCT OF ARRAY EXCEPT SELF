@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void productExceptSelf(int nums[], int n) {
+    int result[n];
+    
+    for(int i = 0; i < n; i++) {
+        result[i] = 1;
+        for(int j = 0; j < n; j++) {
+            if(i != j)
+                result[i] *= nums[j];
+        }
+    }
+
+    for(int i = 0; i < n; i++) {
+        printf("%d ", result[i]);
+    }
+}
+
+int main() {
+    int nums[] = {1, 2, 3, 4};
+    int n = sizeof(nums)/sizeof(nums[0]);
+
+    productExceptSelf(nums, n);
+    return 0;
+}
