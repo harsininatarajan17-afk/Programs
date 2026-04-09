@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define ALPHABET_SIZE 26
+
+typedef struct TrieNode {
+    struct TrieNode *children[ALPHABET_SIZE];
+    bool isEnd;
+} TrieNode;
+
+TrieNode* createNode() {
+    TrieNode *node = (TrieNode*)malloc(sizeof(TrieNode));
+    node->isEnd = false;
+    for (int i = 0; i < ALPHABET_SIZE; i++)
+        node->children[i] = NULL;
+    return node;
+}
+
+void insert(TrieNode *root, char *word) {
+    TrieNode *temp = root;
+    for (int i = 0; word[i]; i++) {
+        int index = word[i] - 'a';
+        if (!temp->children[index])
+            temp->children[index] = createNode();
+        temp = temp->children[index];
+    }
+    temp->isEnd = true;
+}
+
+bool search(TrieNode *root, char *word) {
+    TrieNode *temp = root;
+    for (int i = 0; word[i]; i++) {
+        int index = word[i] - 'a';
+        if (!temp->children[index])
+            return false;
+        temp = temp->children[index];
+    }
+    return temp->isEnd;
+}
+
+bool startsWith(TrieNode *root, char *prefix) {
+    TrieNode *temp = root;
+    for (int i = 0; prefix[i]; i++) {
+        int index = prefix[i] - 'a';
+        if (!temp->children[index])
+            return false;
+        temp = temp->children[index];
+    }
+    return true;
+}
+
+int main() {
+    TrieNode *root = createNode();
+
+    insert(root, "apple");
+    printf("%d\n", search(root, "apple"));   // 1
+    printf("%d\n", search(root, "app"));     // 0
+    printf("%d\n", startsWith(root, "app")); // 1
+
+    insert(root, "app");
+    printf("%d\n", search(root, "app"));     // 1
+
+    return 0;
+}
