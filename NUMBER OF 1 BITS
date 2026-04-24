@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int hammingWeight(unsigned int n) {
+    int count = 0;
+
+    while (n) {
+        count += n & 1;
+        n = n >> 1;
+    }
+
+    return count;
+}
+
+int main() {
+    unsigned int n = 11;
+    printf("%d", hammingWeight(n)); // Output: 3
+    return 0;
+}
